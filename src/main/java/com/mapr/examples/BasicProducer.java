@@ -13,6 +13,8 @@ public class BasicProducer {
     public static KafkaProducer producer;
 
     public static void main(String[] args) throws IOException {
+        System.out.println("args.length=" + args.length);
+        /*
         Runtime runtime = Runtime.getRuntime();
         if (args.length < 1) {
             System.err.println("USAGE:\n" +
@@ -21,13 +23,14 @@ public class BasicProducer {
                     "\tjava -cp ./mapr-streams-study-1.0-jar-with-dependencies.jar com.mapr.examples.BasicProducer /user/mapr/mystream:mytopic [input_data.json]");
             runtime.exit(1);
         }
+        */
 
         String topic = args[0];
         System.out.println("Publishing to topic: "+ topic);
         configureProducer();
 
         BufferedReader reader = null;
-        if (args.length == 3) {
+        if (args.length == 2) {
             System.out.println("Opening file " + args[1]);
             File f = new File(args[1]);
             FileReader fr = new FileReader(f);
@@ -43,6 +46,7 @@ public class BasicProducer {
 
         try {
             while (line != null) {
+                System.out.println(line);
                 ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topic, line);
                 // Send the record to the producer client library.
                 producer.send(rec);

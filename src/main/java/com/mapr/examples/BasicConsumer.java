@@ -12,6 +12,7 @@ public class BasicConsumer {
     public static KafkaConsumer consumer;
 
     public static void main(String[] args) {
+        /*
         Runtime runtime = Runtime.getRuntime();
         if (args.length != 1) {
             System.err.println("ERROR: You must specify a stream:topic to consume data from.");
@@ -21,6 +22,7 @@ public class BasicConsumer {
                     "\tjava -cp ./mapr-streams-study-1.0-jar-with-dependencies.jar com.mapr.examples.BasicConsumer /user/mapr/mystream:mytopic");
             runtime.exit(1);
         }
+        */
 
         String topic = args[0];
         System.out.println("Subscribed to : "+ topic);
