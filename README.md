@@ -24,24 +24,12 @@ When data structures are communicated through MapR Streams they must be converte
 * JDK 8
 * Maven 3.x
 
-The MapR Container For Developers is a docker image that enables you to quickly deploy a single-node MapR instance on a workstation. It is designed to give software developers an easy way to experiment with the APIs for MapR Streams, MapR-DB, and Spark without the burden of connecting to a real cluster. Installation steps can be found [**here**](https://maprdocs.mapr.com/home/MapRContainerDevelopers/MapRContainerDevelopersOverview.html). The installation basically consists of running the following commands on your Mac:
 
-```
-$ wget http://package.mapr.com/releases/v6.0.0/mac/mapr-client-6.0.0.20171109191718.GA-1.x86_64.tar.gz -P ~/Downloads/
-$ sudo mv ~/Downloads/mapr-client-6.0.0.20171109191718.GA-1.x86_64.tar.gz /opt
-$ cd /opt
-$ sudo tar xvfz mapr-client-6.0.0.20171107171328.GA-1.x86_64.tar.gz
-$ cd ~/
-$ wget https://raw.githubusercontent.com/mapr-demos/mapr-db-60-getting-started/master/mapr_devsandbox_container_setup.sh
-$ chmod +x mapr_devsandbox_container_setup.sh
-$ ./mapr_devsandbox_container_setup.sh
-```
-
-The rest of this guide will assume you're running the MapR Container For Developers in Docker on a Mac and have installed MapR client software on that same Mac.
+The rest of this guide will assume you're running the MapR  VM/Container For Developers in Docker on a Mac and have installed MapR client software on that same Mac.
 
 ## Step 1: Verify the MapR cluster is working
 
-It can take up to 5 minutes for the cluster to start. You'll know it's finished starting if you can connect to the container with `ssh root@localhost -p 2222` using password "mapr" and the /apps/ cluster directory is shown by the command, `/opt/mapr/bin/hadoop fs -ls /apps`. If the container is taking longer than a 5 minutes to start, then you probably need to allocate more memory to Docker (try 8GB) or otherwise decrease memory pressure by closing some apps.
+It can take up to 5 minutes for the cluster to start.
 
 ## Step 2: Create a stream and topic
 
@@ -132,7 +120,7 @@ java -cp target/mapr-streams-study-1.0-jar-with-dependencies.jar com.mapr.exampl
 After the consumer starts persisting messages, you can use Drill to inspect what was inserted into MapR-DB with the following command (run this on the MapR node):
 
 ```
-$ /opt/mapr/drill/drill-1.11.0/bin/sqlline -u "jdbc:drill:drillbit=localhost" -n mapr
+$ sqlline -u "jdbc:drill:drillbit=localhost" -n mapr
 0: jdbc:drill:drillbit=localhost> select count(*) from `dfs.default`.`./apps/mytable`;
 ```
 
