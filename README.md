@@ -25,7 +25,7 @@ When data structures are communicated through MapR Streams they must be converte
 * Maven 3.x
 
 
-The rest of this guide will assume you're running the MapR  VM/Container For Developers in Docker on a Mac and have installed MapR client software on that same Mac.
+The rest of this guide will assume you're running the MapR  on VM/Server/Container and  have installed MapR client software on that same machine
 
 ## Step 1: Verify the MapR cluster is working
 
@@ -55,15 +55,6 @@ Build the project with this command:
 mvn package
 ```
 
-Get the container ID for the maprtech/dev-sandbox-container:latest with the following command:
-```
-docker ps
-```
-
-The container ID will look something like "cef0f5194658". Use that container ID to copy this project's jar file to the MapR node:
-```
-docker cp ./target/mapr-streams-study-1.0-jar-with-dependencies.jar CONTAINER_ID:/root/
-```
 
 ## Step 4: Stream plain text messages
 
