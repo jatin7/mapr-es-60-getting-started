@@ -61,13 +61,13 @@ mvn package
 Connect to the MapR node (`ssh root@localhost -p 2222`) and run the consumer like this:
 
 ```
-java -cp target/mapr-streams-study-1.0-jar-with-dependencies.jar com.mapr.examples.BasicConsumer /apps/mystream:mytopic
+java -cp target/mapr-es-60-getting-started-jar-with-dependencies.jar com.mapr.examples.BasicConsumer /apps/mystream:mytopic
 ```
 
 Run a producer in another ssh connection, like this:
 
 ```
-java -cp target/mapr-streams-study-1.0-jar-with-dependencies.jar com.mapr.examples.BasicProducer /apps/mystream:mytopic
+java -cp target/mapr-es-60-getting-started-jar-with-dependencies.jar com.mapr.examples.BasicProducer /apps/mystream:mytopic
 ```
 
 Now, type some stuff in the producer and you should see it received on the consumer.
@@ -79,8 +79,8 @@ You just streamed plain text messages through MapR Streams. However, application
 [Avro](https://avro.apache.org/docs/current/) is a data encoding library that uses user-defined schemas to convert rich data structures to compact Byte arrays for streaming. You can stream Avro encoded messages on your MapR node with the following two commands:
 
 ```
-java -cp ./mapr-streams-study-1.0-jar-with-dependencies.jar com.mapr.examples.AvroConsumer /apps/mystream:mytopic2
-java -cp ./mapr-streams-study-1.0-jar-with-dependencies.jar com.mapr.examples.AvroProducer /apps/mystream:mytopic2
+java -cp ./mapr-es-60-getting-started-1.0-jar-with-dependencies.jar com.mapr.examples.AvroConsumer /apps/mystream:mytopic2
+java -cp ./mapr-es-60-getting-started1.0-jar-with-dependencies.jar com.mapr.examples.AvroProducer /apps/mystream:mytopic2
 ```
 
 The producer will stream a couple hundred Avro encoded messages and the consumer will decode them and print their contents. Note how we specified a different topic than in the last example. Here we're using "mytopic2". We can't use the topic in the past example (unless we delete it) because it contains messages that don't comply with the schema we defined in Avro. If we did try to attach avroconsumer to "mystream:mytopic", it would fail. Avro was designed to provide this kind of schema enforcement for data validation purposes.
@@ -90,8 +90,8 @@ The producer will stream a couple hundred Avro encoded messages and the consumer
 This example shows how to convert POJOs to binary streams and back. It also shows how to invoke a synchronous callback after a data record has been sent by a stream producer. Run these examples with the following commands:
 
 ```
-java -cp target/mapr-streams-study-1.0-jar-with-dependencies.jar comapr.examples.PojoConsumer /apps/mystream:mytopic3
-java -cp target/mapr-streams-study-1.0-jar-with-dependencies.jar com.mapr.examples.PojoProducer /apps/mystream:mytopic3
+java -cp target/mapr-es-60-getting-started.jar-with-dependencies.jar comapr.examples.PojoConsumer /apps/mystream:mytopic3
+java -cp target/mapr-es-60-getting-started-1.0-jar-with-dependencies.jar com.mapr.examples.PojoProducer /apps/mystream:mytopic3
 ```
 
 The two examples we just discussed for streaming Avro encoded data and POJOs are tied to a specific schema. If you accidentally publish a different type of message to the stream the consumers will fail. That kind of schema enforcement is sometimes desirable for data validation, but contrast that with the next example which encodes data as JSON messages and consequently provides the flexibility for a single stream to be used for schema-free data.
@@ -104,8 +104,8 @@ This example is pretty cool, because it shows how consumers can process streamin
 
 ```
 wget https://raw.githubusercontent.com/mapr-demos/customer360/master/clickstream/data/clickstream_data.json
-java -cp target/mapr-streams-study-1.0-jar-with-dependencies.jar com.mapr.examples.AkkaProducer /apps/mystream:mytopic4 clickstream_data.json
-java -cp target/mapr-streams-study-1.0-jar-with-dependencies.jar com.mapr.examples.AkkaConsumer /apps/mystream:mytopic4 /apps/mytable
+java -cp target/mapr-es-60-getting-started-jar-with-dependencies.jar com.mapr.examples.AkkaProducer /apps/mystream:mytopic4 clickstream_data.json
+java -cp target/mapr-es-60-getting-started-jar-with-dependencies.jar com.mapr.examples.AkkaConsumer /apps/mystream:mytopic4 /apps/mytable
 ```
 
 After the consumer starts persisting messages, you can use Drill to inspect what was inserted into MapR-DB with the following command (run this on the MapR node):
@@ -133,8 +133,8 @@ This example consumes from a stream with a user-defined schema that matches the 
 
 ```
 SPARK_MASTER_IP=192.168.0.38
-scp target/mapr-streams-study-1.0-jar-th-dependencies.jar $SPARK_MASTER_IP
-ssh $SPARK_MASTER_IP java -cp mapr-streams-study-1.0-jar-with-dependencies.jar com.mapr.examples.ClickstreamConsumer /apps/mystream:mytopic4
+scp target/mmapr-es-60-getting-started-jar-th-dependencies.jar $SPARK_MASTER_IP
+ssh $SPARK_MASTER_IP java -cp mapr-es-60-getting-started-jar-with-dependencies.jar com.mapr.examples.ClickstreamConsumer /apps/mystream:mytopic4
 ```
 
 
@@ -151,12 +151,12 @@ Open this project in IntelliJ and create a Remote run configuration like this:
 5. Change the debugger port to 4040 (because this is one of the open ports in the MapR developer container)
 6. Click "OK" to save.
 
-![intellij_debug_config.png](https://github.com/iandow/mapr-streams-study/blob/master/images/intellij_debug_config.png)
+![intellij_debug_config.png](https://github.com/iandow/mapr-es-60-getting-started/blob/master/images/intellij_debug_config.png)
 
 Now, insert "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=4040" in the Java command you wish to debug. For example, to debug the POJO Consumer shown above you would run:
 
 ```
-java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=4040 -cp target/mapr-streams-study-1.0-jar-with-dependencies.jar comapr.examples.PojoConsumer /apps/mystream:mytopic3
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=4040 -cp target/mmapr-es-60-getting-started-jar-with-dependencies.jar comapr.examples.PojoConsumer /apps/mystream:mytopic3
 ```
 
 Then run the "remote-debugging" configuration you setup in IntelliJ. IntelliJ will connect to the JVM and initiate remote debugging.

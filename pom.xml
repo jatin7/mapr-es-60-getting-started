@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <name>mapr-es-60-getting-started</name>
     <groupId>mapr.com</groupId>
-    <artifactId>mapr-streams-study</artifactId>
+    <artifactId>mapr-es-60-getting-started</artifactId>
     <version>1.0</version>
 
     <packaging>jar</packaging>
@@ -13,6 +13,7 @@
         <encoding>UTF-8</encoding>
         <scala.version>2.11.8</scala.version>
         <scala.binary.version>2.11</scala.binary.version>
+        <lombokVersion>1.16.20</lombokVersion>
         <ojai.version>2.0-mapr-1710</ojai.version>
         <spark.version>2.1.0-mapr-1710</spark.version>
         <mapr.library.version>6.0.0-mapr</mapr.library.version>
